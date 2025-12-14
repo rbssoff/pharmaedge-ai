@@ -6,6 +6,58 @@ from io import BytesIO
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from textwrap import wrap
+import streamlit as st
+
+st.set_page_config(page_title="PHARMAEDGE AI", layout="wide")
+
+st.markdown("""
+<style>
+/* Center main container */
+.center-container {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 60px;
+}
+
+/* Center text */
+.center-text {
+    text-align: center;
+}
+
+/* Center buttons */
+div.stButton > button {
+    margin: auto;
+    display: block;
+}
+</style>
+""", unsafe_allow_html=True)
+st.markdown(
+    """
+    <style>
+    /* Center container */
+    .center-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Reduce width of text input */
+    div[data-baseweb="input"] {
+        width: 450px !important;
+    }
+
+    /* Pill shape input */
+    input {
+        border-radius: 30px !important;
+        padding: 14px !important;
+        font-size: 16px !important;
+        text-align: center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 def summarize_abstracts(abstracts):
     """Summarize abstracts into bullet points."""
@@ -90,10 +142,31 @@ def generate_pdf(drug, insights, abstract_summary):
 
 st.set_page_config(page_title="PHARMAEDGE AI", layout="wide")
 
-st.title("💊 PHARMAEDGE AI")
-st.subheader("Agentic AI for Drug Repurposing")
+st.markdown('<div class="center-container">', unsafe_allow_html=True)
 
-drug = st.text_input("Enter Drug or Disease Name", placeholder="e.g. Metformin")
+st.markdown(
+    "<h1 class='center-text'>💊 PHARMAEDGE AI</h1>",
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<h3 class='center-text'>Agentic AI for Drug Repurposing</h3>",
+    unsafe_allow_html=True
+)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+drug = st.text_input(
+    "Enter Drug or Disease Name",
+    placeholder="e.g. Metformin"
+)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+analyze_clicked = st.button("Analyze")
+
+st.markdown('</div>', unsafe_allow_html=True)
+
 
 if st.button("Analyze"):
     if not drug:
